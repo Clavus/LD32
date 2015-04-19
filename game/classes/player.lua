@@ -3,6 +3,7 @@ local deltaTime = deltaTime
 
 local Player = class("Player", Entity)
 Player:include( PhysicsBody )
+Player:include( CollisionResolver )
 
 function Player:initialize(level, crosshair, input)
 	
@@ -12,14 +13,17 @@ function Player:initialize(level, crosshair, input)
 	Entity.initialize(self)
 	PhysicsBody.initialize(self, self._world)
 	
+	self._body:setLinearDamping( 5 )
+	
 	self._speed = 0
 	self._moved = false
 	
 	self._sprite = Sprite({
-		image = resource.getImage(FOLDER.ASSETS.."player_ship.png"),
+		image = resource.getImage(FOLDER.ASSETS.."player2.png"),
 		origin_relative = Vector(0.5, 0.5)
 	})
 	self._shootsound = resource.getSound(FOLDER.ASSETS.."shoot.wav", "static")
+	self._shootsound:setVolume(0.5)
 	
 	self._crosshair = crosshair
 	self:initBody()
@@ -28,7 +32,7 @@ end
 
 function Player:initBody()
 	
-	local w, h = 60, 60
+	local w, h = 69, 69
 	local x, y = self:getPos()
 	self._shape = love.physics.newRectangleShape(0, 0, w, h)
 	self._fixture = love.physics.newFixture(self._body, self._shape)
@@ -79,7 +83,16 @@ function Player:draw()
 	
 	local x, y = self:getPos()
 	local r = self:getAngle()
-	self._sprite:draw(x, y, r, 0.5)
+	self._sprite:draw(x, y, r)
+	
+end
+
+function Player:beginContactWith( other, contact, myFixture, otherFixture, selfIsFirst )
+	
+	if (other:isInstanceOf(Enemy)) then
+		signal.emit("lose")
+		self:remove()
+	end
 	
 end
 

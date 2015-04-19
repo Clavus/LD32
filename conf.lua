@@ -1,11 +1,11 @@
 
 function love.conf(t)
-	t.identity = "Conclavus"					-- The name of the save directory (string)
+	t.identity = "LD32"					-- The name of the save directory (string)
 	t.version = "0.9.1" 						-- The LVE version this game was made for (string)
 	t.author = "Clavus"						-- The author of the game (string)
 	t.console = true							-- Attach a console (boolean, Windows only)
 
-	t.window.title = "LD engine test"		-- The window title (string)
+	t.window.title = "LD32"		-- The window title (string)
 	t.window.icon = nil 						-- Filepath to an image to use as the window's icon (string)
 	t.window.width = 1280					-- The window width (number)
 	t.window.height = 720					-- The window height (number)

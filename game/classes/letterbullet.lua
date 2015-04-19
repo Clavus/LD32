@@ -22,6 +22,7 @@ function LetterBullet:initBody()
 	local w, h = 10, 10
 	self._shape = love.physics.newCircleShape( 10 )
 	self._fixture = love.physics.newFixture(self._body, self._shape)
+	self._fixture:setMask( 2 )
 	self._fixture:setUserData(self)
 	self:setDrawBoundingBox( -w/2, -h/2, w/2, h/2 )
 	
@@ -51,6 +52,14 @@ function LetterBullet:draw()
 	lg.printf(self._letter, x - (fx * self.w / 2), y - (ry * self.h / 2), 100, "left", r)
 	lg.setFont(oldfont)
 	
+end
+
+function LetterBullet:getDrawLayer()
+	return "bullet_layer"
+end
+
+function LetterBullet:getLetter()
+	return self._letter
 end
 
 return LetterBullet

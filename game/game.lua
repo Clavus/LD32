@@ -6,7 +6,9 @@ function game.load()
 	
 	love.mouse.setVisible( false )
 	love.mouse.setRelativeMode( true )
-
+	
+	words.load()
+	
 	input = getInput()
 	
 	signal.register( "SpawnLevelObject", function( level, object )
@@ -25,6 +27,10 @@ function game.update( dt )
 		love.event.quit() 
 		return 
 	end
+	if (input:keyIsPressed("r") and gamestate.canRestart()) then
+		print("restarting")
+		gamestate.switch( playState )
+	end
 	
 	gamestate.update(dt)
 end
@@ -42,3 +48,4 @@ end
 function game.textinput( text )
 	gamestate.textinput( text )
 end
+

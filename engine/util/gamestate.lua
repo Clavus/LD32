@@ -33,8 +33,8 @@ function gamestate.switch(to, ...)
 	assert(to, "Missing argument: Gamestate to switch to")
 	assert(to ~= gamestate, "Can't call switch with colon operator")
 	local pre = stack[#stack]
-	pre.leave(pre)
-	to.init(to)
+	pre.leave(pre);
+	(to.init or __NULL__)(to)
 	to.init = nil
 	stack[#stack] = to
 	return (to.enter or __NULL__)(to, pre, ...)
