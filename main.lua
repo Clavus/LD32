@@ -1,5 +1,5 @@
 
-local _gameTitle = "LD32"
+local _gameTitle = "Fighting Words (LD32)"
 local _start = os.clock()
 local _curTime, _prntcnt = 0, 0
 local _deltaTime = 0
