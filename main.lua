@@ -2,12 +2,14 @@
 local _gameTitle = "Conclavus"
 local _start = os.clock()
 local _curTime, _prntcnt = 0, 0
+local _deltaTime = 0
 local _input
 
 local lw = love.window
 
 __NULL__ = function() end -- null function so you can do "(a or __NULL__)(...)"  instead of "if (a != nil) then a(...) end".
 currentTime = function() return _curTime end
+deltaTime = function() return _deltaTime end
 
 local oldprint = print
 function print( ... )
@@ -28,6 +30,7 @@ function love.load( arg )
 	if arg[#arg] == "-debug" then require("mobdebug").start() end
 
 	_curTime = 0
+	_deltaTime = 0
 	local libdiff = os.clock() - _start
 	_start = os.clock()
 	math.randomseed(_start)
@@ -47,6 +50,7 @@ end
 
 function love.update( dt )
 	_curTime = _curTime + dt
+	_deltaTime = dt
 	lw.setTitle(_gameTitle.."  ("..love.timer.getFPS().." fps)")
 	lovebird.update()
 	timer.update(dt)
@@ -117,6 +121,7 @@ function love.resize( w, h )
 end
 
 function love.textinput(text)
+	(game.textinput or __NULL__)( text )
   loveframes.textinput(text)
 end
 
