@@ -39,7 +39,7 @@ function love.load( arg )
 	_input = InputController()
 	
 	screen.init( lw.getMode() )
-	lovebird.init()
+	--lovebird.init()
 	game.load()
 	-------------------------------------------------------
 	print("-- Initializing ".._gameTitle.." --")
@@ -52,7 +52,7 @@ function love.update( dt )
 	_curTime = _curTime + dt
 	_deltaTime = dt
 	lw.setTitle(_gameTitle.."  ("..love.timer.getFPS().." fps)")
-	lovebird.update()
+	--lovebird.update()
 	timer.update(dt)
 	resource.update()
 	game.update(dt)
@@ -65,7 +65,7 @@ end
 function love.draw()
 	screen.preDraw()
 	game.draw()
-	loveframes.draw()
+	--loveframes.draw()
 	screen.postDraw()
 end
 
